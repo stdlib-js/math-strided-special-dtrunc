@@ -48,7 +48,7 @@ limitations under the License.
 ## Usage
 
 ```javascript
-import dtrunc from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@deno/mod.js';
+import dtrunc from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@v0.2.0-deno/mod.js';
 ```
 
 #### dtrunc( N, x, strideX, y, strideY )
@@ -152,7 +152,7 @@ dtrunc.ndarray( 3, x, 2, 1, y, -1, y.length-1 );
 ```javascript
 import uniform from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-base-uniform@deno/mod.js';
 import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
-import dtrunc from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@deno/mod.js';
+import dtrunc from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@v0.2.0-deno/mod.js';
 
 var x = new Float64Array( 10 );
 var y = new Float64Array( 10 );
