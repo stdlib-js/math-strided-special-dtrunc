@@ -41,38 +41,32 @@ limitations under the License.
 
 <!-- /.intro -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/math-strided-special-dtrunc
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-dtrunc = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var dtrunc = require( 'path/to/vendor/umd/math-strided-special-dtrunc/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.dtrunc;
-})();
-</script>
+var dtrunc = require( '@stdlib/math-strided-special-dtrunc' );
 ```
 
 #### dtrunc( N, x, strideX, y, strideY )
@@ -173,15 +167,10 @@ dtrunc.ndarray( 3, x, 2, 1, y, -1, y.length-1 );
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/random-base-uniform@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/math-strided-special-dtrunc@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var uniform = require( '@stdlib/random-base-uniform' );
+var Float64Array = require( '@stdlib/array-float64' );
+var dtrunc = require( '@stdlib/math-strided-special-dtrunc' );
 
 var x = new Float64Array( 10 );
 var y = new Float64Array( 10 );
@@ -195,11 +184,6 @@ console.log( y );
 
 dtrunc.ndarray( x.length, x, 1, 0, y, -1, y.length-1 );
 console.log( y );
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -208,7 +192,111 @@ console.log( y );
 
 <!-- C interface documentation. -->
 
+* * *
 
+<section class="c">
+
+## C APIs
+
+<!-- Section to include introductory text. Make sure to keep an empty line after the intro `section` element and another before the `/section` close. -->
+
+<section class="intro">
+
+</section>
+
+<!-- /.intro -->
+
+<!-- C usage documentation. -->
+
+<section class="usage">
+
+### Usage
+
+```c
+#include "stdlib/math/strided/special/dtrunc.h"
+```
+
+#### stdlib_strided_dtrunc( N, \*X, strideX, \*Y, strideY )
+
+Rounds each element in a double-precision floating-point strided array `X` toward zero and assigns the results to elements in a double-precision floating-point strided array `Y`.
+
+```c
+#include <stdint.h>
+
+const double X[] = { 1.1, 2.5, -3.5, 4.0, -5.9, 6.4, -7.0, 8.2 };
+double Y[] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+
+const int64_t N = 4;
+
+stdlib_strided_dtrunc( N, X, 2, Y, 2 );
+```
+
+The function accepts the following arguments:
+
+-   **N**: `[in] int64_t` number of indexed elements.
+-   **X**: `[in] double*` input array.
+-   **strideX**: `[in] int64_t` index increment for `X`.
+-   **Y**: `[out] double*` output array.
+-   **strideY**: `[in] int64_t` index increment for `Y`.
+
+```c
+void stdlib_strided_dtrunc( const int64_t N, const double *X, const int64_t strideX, double *Y, const int64_t strideY );
+```
+
+</section>
+
+<!-- /.usage -->
+
+<!-- C API usage notes. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
+
+<section class="notes">
+
+</section>
+
+<!-- /.notes -->
+
+<!-- C API usage examples. -->
+
+<section class="examples">
+
+### Examples
+
+```c
+#include "stdlib/math/strided/special/dtrunc.h"
+#include <stdint.h>
+#include <stdio.h>
+
+int main( void ) {
+    // Create an input strided array:
+    const double X[] = { 1.1, 2.5, -3.5, 4.0, -5.9, 6.4, -7.0, 8.2 };
+
+    // Create an output strided array:
+    double Y[] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+
+    // Specify the number of elements:
+    const int64_t N = 4;
+
+    // Specify the stride lengths:
+    const int64_t strideX = 2;
+    const int64_t strideY = 2;
+
+    // Compute the results:
+    stdlib_strided_dtrunc( N, X, strideX, Y, strideY );
+
+    // Print the results:
+    for ( int i = 0; i < 8; i++ ) {
+        printf( "Y[ %i ] = %lf\n", i, Y[ i ] );
+    }
+}
+```
+
+</section>
+
+<!-- /.examples -->
+
+</section>
+
+<!-- /.c -->
 
 <!-- Section for related `stdlib` packages. Do not manually edit this section, as it is automatically populated. -->
 
@@ -266,8 +354,8 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 [npm-image]: http://img.shields.io/npm/v/@stdlib/math-strided-special-dtrunc.svg
 [npm-url]: https://npmjs.org/package/@stdlib/math-strided-special-dtrunc
 
-[test-image]: https://github.com/stdlib-js/math-strided-special-dtrunc/actions/workflows/test.yml/badge.svg?branch=main
-[test-url]: https://github.com/stdlib-js/math-strided-special-dtrunc/actions/workflows/test.yml?query=branch:main
+[test-image]: https://github.com/stdlib-js/math-strided-special-dtrunc/actions/workflows/test.yml/badge.svg?branch=v0.2.2
+[test-url]: https://github.com/stdlib-js/math-strided-special-dtrunc/actions/workflows/test.yml?query=branch:v0.2.2
 
 [coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/math-strided-special-dtrunc/main.svg
 [coverage-url]: https://codecov.io/github/stdlib-js/math-strided-special-dtrunc?branch=main
@@ -299,17 +387,17 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 
 [stdlib-license]: https://raw.githubusercontent.com/stdlib-js/math-strided-special-dtrunc/main/LICENSE
 
-[@stdlib/array/float64]: https://github.com/stdlib-js/array-float64/tree/umd
+[@stdlib/array/float64]: https://github.com/stdlib-js/array-float64
 
 <!-- <related-links> -->
 
-[@stdlib/math/strided/special/dceil]: https://github.com/stdlib-js/math-strided-special-dceil/tree/umd
+[@stdlib/math/strided/special/dceil]: https://github.com/stdlib-js/math-strided-special-dceil
 
-[@stdlib/math/strided/special/dfloor]: https://github.com/stdlib-js/math-strided-special-dfloor/tree/umd
+[@stdlib/math/strided/special/dfloor]: https://github.com/stdlib-js/math-strided-special-dfloor
 
-[@stdlib/math/strided/special/trunc]: https://github.com/stdlib-js/math-strided-special-trunc/tree/umd
+[@stdlib/math/strided/special/trunc]: https://github.com/stdlib-js/math-strided-special-trunc
 
-[@stdlib/math/strided/special/strunc]: https://github.com/stdlib-js/math-strided-special-strunc/tree/umd
+[@stdlib/math/strided/special/strunc]: https://github.com/stdlib-js/math-strided-special-strunc
 
 <!-- </related-links> -->
 
